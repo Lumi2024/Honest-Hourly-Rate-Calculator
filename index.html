@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Honest Hourly Rate Calculator – Freelancers & Consultants</title>
+  <meta name="description" content="Calculate your honest hourly rate in seconds. Simple, realistic hourly rate calculator for freelancers and consultants.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 16px;
+      line-height: 1.6;
+      color: #222;
+    }
+    h1, h2 {
+      line-height: 1.3;
+    }
+    .calculator {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: 6px;
+      background: #fafafa;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 16px;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 16px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .pdf-box {
+      margin: 32px 0;
+      padding: 20px;
+      border: 1px dashed #999;
+      border-radius: 6px;
+      background: #fff;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>The Honest Hourly Rate Calculator</h1>
+<p>
+Find out how much you really need to charge per hour as a freelancer or consultant.
+No complex tax rules. Just a realistic estimate.
+</p>
+
+<div class="calculator">
+  <label>Desired annual income (€)</label>
+  <input type="number" id="income" min="0" step="any">
+
+  <label>Working days per year</label>
+  <input type="number" id="days" min="0" step="any" placeholder="e.g. 220">
+
+  <label>Billable hours per day</label>
+  <input type="number" id="hours" min="0" step="any" placeholder="e.g. 6">
+
+  <label>Estimated charges / taxes (%)</label>
+  <input type="number" id="charges" min="0" step="any" placeholder="e.g. 30">
+
+  <button onclick="calculate()">Calculate hourly rate</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<h2>How does this calculator work?</h2>
+<p>
+This tool estimates your hourly rate based on your annual income goal
+and the number of hours you can realistically bill.
+</p>
+
+<p>
+Formula:
+</p>
+<p>
+<strong>
+Hourly rate = Annual income ÷ (Working days × Billable hours)
+</strong>
+</p>
+
+<p>
+If you include charges or taxes, the calculator adjusts the rate accordingly.
+</p>
+
+<div class="pdf-box">
+  <p>
+  Want ready-made hourly rate tables instead of recalculating every time?
+  </p>
+
+  <p>
+  👉 <a href="https://ko-fi.com/s/XXXXXXXX" target="_blank">
+  Download the Honest Hourly Rate Tables (PDF – 1 €)
+  </a>
+  </p>
+</div>
+
+<footer>
+  <p>
+  This calculator provides an estimate only.
+  Always consult a professional for exact tax obligations.
+  </p>
+</footer>
+
+<script>
+function calculate() {
+  const income = parseFloat(document.getElementById('income').value);
+  const days = parseFloat(document.getElementById('days').value);
+  const hours = parseFloat(document.getElementById('hours').value);
+  const charges = parseFloat(document.getElementById('charges').value) || 0;
+
+  if (!income || !days || !hours) {
+    document.getElementById('result').innerText =
+      "Please fill in all required fields.";
+    return;
+  }
+
+  const totalHours = days * hours;
+  let hourlyRate = income / totalHours;
+
+  if (charges > 0) {
+    hourlyRate = hourlyRate / (1 - charges / 100);
+  }
+
+  document.getElementById('result').innerText =
+    "Recommended hourly rate: " + hourlyRate.toFixed(2) + " € / hour";
+}
+</script>
+
+</body>
+</html>
